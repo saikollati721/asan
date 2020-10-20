@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	public User findByEmail(String username);
 	
-	@Query("SELECT new com.sai.Project(projectId,projectName,createdBy) FROM Project where userId= :userId")
-	public List<Project> getProjectByUserId(@Param("userId") long userId);	
+//	@Query("SELECT new com.sai.Project(projectId,projectName,createdBy) FROM Project where userId= :userId")
+//	public List<Project> getProjectByUserId(@Param("userId") long userId);	
 }
 

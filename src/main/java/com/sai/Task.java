@@ -20,6 +20,21 @@ public class Task {
 	private String priority;
 	private String status;
 	private boolean mark;
+	private Long projectId;
+	private long assignId;
+	
+	public Long getProjectId() {
+		return projectId;
+	}
+	public long getAssignId() {
+		return assignId;
+	}
+	public void setAssignId(long assignId) {
+		this.assignId = assignId;
+	}
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
 	public long getId() {
 		return id;
 	}

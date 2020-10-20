@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="user", uniqueConstraints = @UniqueConstraint(columnNames="email"))
+@Table(name="users", uniqueConstraints = @UniqueConstraint(columnNames="email"))
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +32,9 @@ public class User {
 	private String imageUrl;
 	private String role;
 	
-	@OneToMany(targetEntity = Project.class, fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="userId", referencedColumnName = "id")
-	private List<Project> projects;
+//	@OneToMany(targetEntity = Project.class, fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinColumn(name="userId", referencedColumnName = "id")
+//	private List<Project> projects;
 
 	
 //	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
@@ -47,13 +47,13 @@ public class User {
 //				)		
 //	private List<Project> assignedprojects;
 	
-	public List<Project> getProjects() {
-		return projects;
-	}
-
-	public void setProjects(List<Project> projects) {
-		this.projects = projects;
-	}
+//	public List<Project> getProjects() {
+//		return projects;
+//	}
+//
+//	public void setProjects(List<Project> projects) {
+//		this.projects = projects;
+//	}
 
 	public User() {
 		// TODO Auto-generated constructor stub
