@@ -1,4 +1,4 @@
-package com.sai;
+package com.sai.model;
 
 import java.util.Collection;
 import java.util.Date;
@@ -28,9 +28,9 @@ public class User {
 	private String email;
 	private String password;
 	private String about;
-	private Date createdAt;
+	private Date createdAt=new Date();
 	private String imageUrl;
-	private String role;
+	private String role="USER";
 	
 //	@OneToMany(targetEntity = Project.class, fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 //	@JoinColumn(name="userId", referencedColumnName = "id")
@@ -129,10 +129,6 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	
-
-	
+	}	
 
 }

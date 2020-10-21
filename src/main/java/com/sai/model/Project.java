@@ -1,4 +1,4 @@
-package com.sai;
+package com.sai.model;
 
 import java.util.Date;
 import java.util.List;

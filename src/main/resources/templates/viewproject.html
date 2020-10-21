@@ -45,23 +45,26 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				ToDo
+				<a th:href="@{/createtask/{projectId}(projectId = ${projectId})}">
+					<button type="button" class="btn btn-default" aria-label="Left Align">
+					  <span class="glyphicon glyphicon-plus"></span>
+					</button><span>Create Task</span>
+					
+				</a>
 			</div>
+			
 			<div class="col-xs-12">
-			<a >
-				<button type="button" class="btn btn-default" aria-label="Left Align">
-				  <span class="glyphicon glyphicon-plus"></span>
-				</button><span>Create Project</span>
-			</a>
+				ToDo 
 			</div>
+			
 		</div>
 		<div class="card">
-				
+			
 			<div class="card-block">
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>Id</th>
+							
 							<th>TaskName</th>
 							<th>Due</th>
 							<th>priority</th>
@@ -74,13 +77,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 						<span th:each="tasks : ${todo}">
 					        
 					            <tr th:each="task: ${tasks}">
-						                <th th:text="${task.id}"></th>
+						                
 						                 <th th:text="${task.taskName}"></th>
 										 <th th:text="${task.due}"></th>
 										  <th th:text="${task.priority}"></th>
 										 <th th:text="${task.taskStatus}"></th>
 										 <th th:text="${task.assignId}"></th>
-										 <th><a >
+										 <th><a th:href="@{/edittask/{projectId}/{id}(projectId = ${projectId}, id = ${task.id})}">
 											<button type="button" class="btn btn-default" aria-label="Left Align">
 											  <span class="glyphicon glyphicon-pencil"></span>
 											</button><span>Edit</span>
@@ -110,13 +113,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 			<div class="col-xs-12">
 				Doing
 			</div>
-			<div class="col-xs-12">
-			<a >
-				<button type="button" class="btn btn-default" aria-label="Left Align">
-				  <span class="glyphicon glyphicon-plus"></span>
-				</button><span>Create Project</span>
-			</a>
-			</div>
+			
 		</div>
 		<div class="card">
 				
@@ -124,7 +121,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>Id</th>
+							
 							<th>TaskName</th>
 							<th>Due</th>
 							<th>priority</th>
@@ -137,13 +134,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 						<span th:each="tasks : ${doing}">
 					        
 					            <tr th:each="task: ${tasks}">
-						                <th th:text="${task.id}"></th>
+						                
 						                 <th th:text="${task.taskName}"></th>
 										 <th th:text="${task.due}"></th>
 										  <th th:text="${task.priority}"></th>
 										 <th th:text="${task.taskStatus}"></th>
 										 <th th:text="${task.assignId}"></th>
-										 <th><a >
+										 <th><a th:href="@{/edittask/{projectId}/{id}(projectId = ${projectId}, id = ${task.id})}">
 											<button type="button" class="btn btn-default" aria-label="Left Align">
 											  <span class="glyphicon glyphicon-pencil"></span>
 											</button><span>Edit</span>
@@ -175,13 +172,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 			<div class="col-xs-12">
 				Done
 			</div>
-			<div class="col-xs-12">
-			<a >
-				<button type="button" class="btn btn-default" aria-label="Left Align">
-				  <span class="glyphicon glyphicon-plus"></span>
-				</button><span>Create Project</span>
-			</a>
-			</div>
+			
 		</div>
 	
 		<div class="card">
@@ -191,7 +182,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>Id</th>
+							
 							<th>TaskName</th>
 							<th>Due</th>
 							<th>priority</th>
@@ -204,13 +195,12 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 						<span th:each="tasks : ${done}">
 					        
 					            <tr th:each="task: ${tasks}">
-						                <th th:text="${task.id}"></th>
 						                 <th th:text="${task.taskName}"></th>
 										 <th th:text="${task.due}"></th>
 										  <th th:text="${task.priority}"></th>
 										 <th th:text="${task.taskStatus}"></th>
 										 <th th:text="${task.assignId}"></th>
-										 <th><a >
+										 <th><a th:href="@{/edittask/{projectId}/{id}(projectId = ${projectId}, id = ${task.id})}">
 											<button type="button" class="btn btn-default" aria-label="Left Align">
 											  <span class="glyphicon glyphicon-pencil"></span>
 											</button><span>Edit</span>

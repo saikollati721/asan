@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Registration</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<!-- create navigation bar ( header) -->
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+			</div>
+		</div>
+	</nav>
+	
+
+<br>
+<br>
+	<!-- Create HTML registration form -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				
+				<!-- success message -->
+				<div th:if="${param.success}">
+					<div class="alert alert-info" role="alert">You've successfully registered
+						to our awesome app!</div>
+				</div>
+
+				
+				<h1>Create Task</h1>
+
+				<form th:action="@{/edittask/{projectId}/{id}(projectId = ${projectId}, id = ${task.id})}" method="post" th:object="${task}">
+					<div class="form-group">
+						<label class="control-label" for="firstName"> First Name </label>
+						<input id="taskName" class="form-control" th:field="*{taskName}"
+							required autofocus="autofocus" />
+					</div>
+
+					
+					<div class="form-group">
+					<label class="control-label" for="status"> status</label>
+						<select th:field="*{status}">
+						    <option th:value="'Todo'" th:text="Todo"></option>
+						    <option th:value="'Doing'" th:text="Doing"></option>
+						    <option th:value="'Done'" th:text="Done"></option>
+						</select>
+					</div>
+
+
+					<div class="form-group">
+						<label class="control-label" for="taskStatus">taskStatus</label>
+						<select th:field="*{taskStatus}">
+						    <option th:value="'AtRisk'" th:text="AtRisk"></option>
+						    <option th:value="'OfTrack'" th:text="OfTrack"></option>
+						    <option th:value="'OnTrack'" th:text="OnTrack"></option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="priority">priority</label>
+						<select th:field="*{priority}">
+						    <option th:value="'HIGH'" th:text="HIGH"></option>
+						    <option th:value="'lOW'" th:text="lOW"></option>
+						    <option th:value="'MEDIUM'" th:text="MEDIUM"></option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="assignId"> assignId </label>
+						<input id="assignId" class="form-control" th:field="*{assignId}"
+							required autofocus="autofocus" />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="due"> due </label>
+						<input id="due" class="form-control" th:field="*{due}" type="date"/>
+					</div>
+					
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Register</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

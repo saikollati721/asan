@@ -1,4 +1,4 @@
-package com.sai;
+package com.sai.model;
 
 import java.util.Date;
 
@@ -16,9 +16,10 @@ public class Task {
 	private long id;
 	private String taskName;
 	private String taskStatus;
-	private Date due;
-	private String priority;
 	private String status;
+	private String due;
+	private String priority;
+	
 	private boolean mark;
 	private Long projectId;
 	private long assignId;
@@ -53,10 +54,10 @@ public class Task {
 	public void setTaskStatus(String taskStatus) {
 		this.taskStatus = taskStatus;
 	}
-	public Date getDue() {
+	public String getDue() {
 		return due;
 	}
-	public void setDue(Date due) {
+	public void setDue(String due) {
 		this.due = due;
 	}
 	public String getPriority() {

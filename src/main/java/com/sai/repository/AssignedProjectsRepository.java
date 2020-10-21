@@ -1,4 +1,4 @@
-package com.sai;
+package com.sai.repository;
 
 import java.util.List;
 
@@ -7,8 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.sai.model.AssignedProject;
+
 @Repository
-public interface AssignedProjectsRepository extends JpaRepository<AssignedProjects, Long> {
+public interface AssignedProjectsRepository extends JpaRepository<AssignedProject, Long> {
 //	@Query("FROM AssignedProjects where userId= :userId")
-	public List<AssignedProjects> findByUserId(@Param(value="userId") long id);
+	public List<AssignedProject> findByUserId(@Param(value="userId") long id);
+	
+	public List<AssignedProject> findByProjectId(long id);
 }

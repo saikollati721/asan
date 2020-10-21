@@ -14,12 +14,14 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.sai.services.UserService;
+
 @Configuration
 @EnableWebSecurity
 public class AppConfig   extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private UserService userService;
+	private UserDetailsService userService;
 		
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

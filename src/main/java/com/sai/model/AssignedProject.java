@@ -1,4 +1,4 @@
-package com.sai;
+package com.sai.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="assignedprojects")
-public class AssignedProjects {
+@Table(name="assignedproject")
+public class AssignedProject {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +17,19 @@ public class AssignedProjects {
 	private Long projectId;
 	private String assignedBy;
 	
+	
+	public AssignedProject(Long userId, Long projectId, String assignedBy) {
+		super();
+		this.userId = userId;
+		this.projectId = projectId;
+		this.assignedBy = assignedBy;
+	}
 	public Long getId() {
 		return id;
+	}
+	public AssignedProject() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	public void setId(Long id) {
 		this.id = id;

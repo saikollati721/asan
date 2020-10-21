@@ -1,4 +1,4 @@
-package com.sai;
+package com.sai.repository;
 
 import java.util.List;
 
@@ -8,11 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.sai.model.User;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	@Query("SELECT new com.sai.JoinInfo(email,password,role) FROM User where email= :email")
-	public JoinInfo getOnlyUserInfo(@Param("email") String email);
-	
+//	@Query("SELECT new com.sai.JoinInfo(email,password,role) FROM User where email= :email")
+//	public JoinInfo getOnlyUserInfo(@Param("email") String email);
+//	
 //	@Modifying
 //	@Query()
 //	public User updateOnlyUser();

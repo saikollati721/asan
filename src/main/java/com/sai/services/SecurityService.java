@@ -1,4 +1,4 @@
-package com.sai;
+package com.sai.services;
 
 public interface SecurityService {
     String findLoggedInUsername();
