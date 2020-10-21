@@ -3,19 +3,25 @@ package com.sai.controllers;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sai.model.AssignedProject;
@@ -27,7 +33,8 @@ import com.sai.repository.TaskRepository;
 import com.sai.repository.UserRepository;
 import com.sai.services.SecurityService;
 
-@Controller
+@RestController
+@RequestMapping()
 public class UsersContoller {
 	
 	@Autowired
@@ -41,59 +48,101 @@ public class UsersContoller {
 
 	
 	@Autowired
-	private AssignedProjectsRepository assignedprojectrepo;
+	private AssignedProjectsRepository assignedProjectRepo;
+
 	
 	@Autowired
     private SecurityService securityService;
 
 	
-	@RequestMapping("/")
-	public String home(Principal principal,Model mv) {
-		User user=userrepo.findByEmail(principal.getName());
-		mv.addAttribute("user",user);
-		
-		long id=user.getId();
-		List<Project> projects = projectrepo.findByUserId(id);
-		mv.addAttribute("projects", projects);
-		
-		List<AssignedProject> assign=assignedprojectrepo.findByUserId(id);
-		List<Project> assignedProject = new ArrayList<Project>();
-		if(assign!=null) {
-			for(AssignedProject ap:assign) {
-				long projectid=ap.getProjectId();
-				assignedProject.add(projectrepo.findByProjectId(projectid));
-			}
-		}	
-		mv.addAttribute("assignedProject", assignedProject);	
-		return "home";
+	
+	@GetMapping(path="/users")
+	@ResponseBody
+	public ResponseEntity<List<User>> getAllUsers() {
+		return ResponseEntity.status(HttpStatus.OK).body(userrepo.findAll());
+
+	}
+	
+	@PostMapping(path="/users", consumes = "application/json")
+	@ResponseBody
+	public ResponseEntity<User> setUser(@RequestBody User user) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(userrepo.save(user));
+	}
+
+	
+	
+	@GetMapping("/user_projects")
+	@ResponseBody
+	public ResponseEntity<List<AssignedProject>> getAllAssignedProjects() {
+		return ResponseEntity.status(HttpStatus.OK).body(assignedProjectRepo.findAll());
+
+	}
+	
+	@PostMapping("/user_projects")
+	@ResponseBody
+	public ResponseEntity<AssignedProject> setAssignedProject(@RequestBody AssignedProject req) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(assignedProjectRepo.save(req));
+	}
+	
+	@GetMapping("user_projects/{userId}")
+	public ResponseEntity getAssignedProjectByProjectId(@PathVariable Long userId){
+		Map<String, String> message= new HashMap<String, String>();
+		List<AssignedProject> assignedproject= assignedProjectRepo.findByUserId(userId);
+		if(assignedproject.size()!=0)
+			return ResponseEntity.status(HttpStatus.OK).body(assignedproject);
+		message.put("status","error");
+		message.put("message", "No record found");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
 	}
 	
 	
-	
-	@GetMapping("/registration")
-	public String showRegistrationForm() {
-		return "registration";
-	}
-	
-	@PostMapping("/registration")
-	public String registerUserAccount(@ModelAttribute("user") User req) {
-		userrepo.save(req);
-		securityService.autoLogin(req.getEmail(), req.getPassword());
-		return "redirect:/";
-	}
-	
-	
-	@ModelAttribute("user")
-	public User user() {
-		return new User();
-	}
-	
-	
-	
-	public List<Project> getProjectByUserId(long id){
-		return projectrepo.findByUserId(id);
-		
-	}
+//	@RequestMapping("/")
+//	public String home(Principal principal,Model mv) {
+//		User user=userrepo.findByEmail(principal.getName());
+//		mv.addAttribute("user",user);
+//		
+//		long id=user.getId();
+//		List<Project> projects = projectrepo.findByUserId(id);
+//		mv.addAttribute("projects", projects);
+//		
+//		List<AssignedProject> assign=assignedprojectrepo.findByUserId(id);
+//		List<Project> assignedProject = new ArrayList<Project>();
+//		if(assign!=null) {
+//			for(AssignedProject ap:assign) {
+//				long projectid=ap.getProjectId();
+//				assignedProject.add(projectrepo.findByProjectId(projectid));
+//			}
+//		}	
+//		mv.addAttribute("assignedProject", assignedProject);	
+//		return "home";
+//	}
+//	
+//	
+//	
+//	@GetMapping("/registration")
+//	public String showRegistrationForm() {
+//		return "registration";
+//	}
+//	
+//	@PostMapping("/registration")
+//	public String registerUserAccount(@ModelAttribute("user") User req) {
+//		userrepo.save(req);
+//		securityService.autoLogin(req.getEmail(), req.getPassword());
+//		return "redirect:/";
+//	}
+//	
+//	
+//	@ModelAttribute("user")
+//	public User user() {
+//		return new User();
+//	}
+//	
+//	
+//	
+//	public List<Project> getProjectByUserId(long id){
+//		return projectrepo.findByUserId(id);
+//		
+//	}
 
 	
 	
