@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ import com.sai.repository.UserRepository;
 import com.sai.services.SecurityService;
 
 @RestController
+@CrossOrigin
 @RequestMapping()
 public class UsersContoller {
 	
@@ -47,8 +49,7 @@ public class UsersContoller {
 	private TaskRepository taskrepo;
 
 	
-	@Autowired
-	private AssignedProjectsRepository assignedProjectRepo;
+	
 
 	
 	@Autowired
@@ -71,29 +72,7 @@ public class UsersContoller {
 
 	
 	
-	@GetMapping("/user_projects")
-	@ResponseBody
-	public ResponseEntity<List<AssignedProject>> getAllAssignedProjects() {
-		return ResponseEntity.status(HttpStatus.OK).body(assignedProjectRepo.findAll());
-
-	}
 	
-	@PostMapping("/user_projects")
-	@ResponseBody
-	public ResponseEntity<AssignedProject> setAssignedProject(@RequestBody AssignedProject req) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(assignedProjectRepo.save(req));
-	}
-	
-	@GetMapping("user_projects/{userId}")
-	public ResponseEntity getAssignedProjectByProjectId(@PathVariable Long userId){
-		Map<String, String> message= new HashMap<String, String>();
-		List<AssignedProject> assignedproject= assignedProjectRepo.findByUserId(userId);
-		if(assignedproject.size()!=0)
-			return ResponseEntity.status(HttpStatus.OK).body(assignedproject);
-		message.put("status","error");
-		message.put("message", "No record found");
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-	}
 	
 	
 //	@RequestMapping("/")
