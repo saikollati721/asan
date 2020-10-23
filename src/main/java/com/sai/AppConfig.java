@@ -31,18 +31,20 @@ public class AppConfig   extends WebSecurityConfigurerAdapter {
 	                "/js/**",
 	                "/css/**",
 	                "/img/**").permitAll()
-		.anyRequest().permitAll();
-//		.and()
-//		.formLogin()
-//		.loginPage("/login")
-//		.permitAll()
-//		.and()
-//		.logout()
-//		.invalidateHttpSession(true)
-//		.clearAuthentication(true)
-//		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//		.logoutSuccessUrl("/login?logout")
-//		.permitAll();
+		.anyRequest()
+//		.authenticated()
+		.permitAll()
+		.and()
+		.formLogin()
+		.loginPage("/login")
+		.permitAll()
+		.and()
+		.logout()
+		.invalidateHttpSession(true)
+		.clearAuthentication(true)
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutSuccessUrl("/login?logout")
+		.permitAll();
 	}
 	
 	

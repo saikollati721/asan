@@ -33,6 +33,8 @@ import com.sai.repository.TaskRepository;
 import com.sai.repository.UserRepository;
 
 @RestController
+//@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @CrossOrigin
 @RequestMapping()
 public class ProjectsController {
@@ -68,13 +70,15 @@ public class ProjectsController {
 	public ResponseEntity getProjectByUserId(@PathVariable Long id) {
 		Map<String, String> message= new HashMap<String, String>();
 		List<Project> project=projectrepo.findByUserId(id);
-		if(project.size()!=0)
-			return ResponseEntity.status(HttpStatus.OK).body(project);
-		message.put("status","error");
-		message.put("message", "No record found");
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+//		if(project.size()!=0)
+		return ResponseEntity.status(HttpStatus.OK).body(project);
+//		message.put("status","error");
+//		message.put("message", "No project found by user id");
+//		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
 		
 	}
+	
+
 	
 	@DeleteMapping("/projects/{id}")
 	@ResponseBody
@@ -83,18 +87,32 @@ public class ProjectsController {
 		 Map<String, String> message= new HashMap<String, String>();
 		if(project!=null)
 		{
+			System.out.println("deleting project"+project.getProjectName());
 			projectrepo.deleteById(id);
 			List<AssignedProject> assignedprojects=assignedProjectRepo.findByProjectId(id);
-			assignedProjectRepo.deleteAll(assignedprojects);
+			System.out.println("deleting project after assigned project");
+			if(assignedprojects.size()!=0)
+			{
+				assignedProjectRepo.deleteAll(assignedprojects);
+				System.out.println("deleted assigned porjets sucesfully");
+			}
 			List<Task> tasks=taskrepo.findByProjectId(id);
-			taskrepo.deleteAll(tasks);
+			System.out.println("deleting project after tasks");
+			if(tasks.size()!=0)
+			{
+				taskrepo.deleteAll(tasks);
+				System.out.println("deleted tasks sucesfully");
+
+			}
 			message.put("status","success");
 			message.put("message", "Project deleted successfully");
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		}
-		message.put("status","error");
-		message.put("message", "No record found");
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+		else {
+			message.put("status","error");
+			message.put("message", "No project found");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+		}
 	}
 	
 	

@@ -60,6 +60,7 @@ public class UsersContoller {
 	@GetMapping(path="/users")
 	@ResponseBody
 	public ResponseEntity<List<User>> getAllUsers() {
+		
 		return ResponseEntity.status(HttpStatus.OK).body(userrepo.findAll());
 
 	}
@@ -69,11 +70,28 @@ public class UsersContoller {
 	public ResponseEntity<User> setUser(@RequestBody User user) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(userrepo.save(user));
 	}
+	
+	
+	@GetMapping(path="/users/{id}")
+	@ResponseBody
+	public ResponseEntity<Optional<User>> getUser(@PathVariable Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(userrepo.findById(id));
+
+	}
 
 	
 	
-	
-	
+//	@GetMapping("/register")
+//	public String showRegistrationForm() {
+//		return "registration";
+//	}
+//	
+//	@PostMapping("/registration")
+//	public String registerUserAccount(@ModelAttribute("user") User req) {
+//		userrepo.save(req);
+//		securityService.autoLogin(req.getEmail(), req.getPassword());
+//		return "redirect:/";
+//	}
 	
 //	@RequestMapping("/")
 //	public String home(Principal principal,Model mv) {

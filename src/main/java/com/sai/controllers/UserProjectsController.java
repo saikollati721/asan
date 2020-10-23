@@ -1,5 +1,6 @@
 package com.sai.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sai.model.AssignedProject;
+import com.sai.model.Project;
 import com.sai.repository.AssignedProjectsRepository;
+import com.sai.repository.ProjectRepository;
 
 @RestController
 @CrossOrigin
@@ -26,6 +29,9 @@ public class UserProjectsController {
 
 	@Autowired
 	private AssignedProjectsRepository assignedProjectRepo;
+	
+	@Autowired
+	private ProjectRepository projectrepo;
 	
 	public UserProjectsController() {
 		// TODO Auto-generated constructor stub
@@ -46,11 +52,17 @@ public class UserProjectsController {
 	}
 	
 	@GetMapping("user_projects/{userId}")
-	public ResponseEntity getAssignedProjectByProjectId(@PathVariable Long userId){
+	public ResponseEntity getAssignedProjectByUserId(@PathVariable Long userId){
 		Map<String, String> message= new HashMap<String, String>();
-		List<AssignedProject> assignedproject= assignedProjectRepo.findByUserId(userId);
-		if(assignedproject.size()!=0)
-			return ResponseEntity.status(HttpStatus.OK).body(assignedproject);
+		List<AssignedProject> assignedprojects= assignedProjectRepo.findByUserId(userId);
+		if(assignedprojects.size()!=0)
+		{	
+			List<Project> projects=new ArrayList<Project>();
+			for(AssignedProject as:assignedprojects) {
+				projects.add(projectrepo.findByProjectId(as.getProjectId()));
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(projects);
+		}
 		message.put("status","error");
 		message.put("message", "No record found");
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);

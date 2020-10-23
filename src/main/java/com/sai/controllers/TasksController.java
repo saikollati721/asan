@@ -71,7 +71,7 @@ public class TasksController {
 	
 
 	@PutMapping("/tasks/{taskId}")
-	public ResponseEntity updateTaskByProjectId(@RequestBody Task req,@PathVariable Long taskId){
+	public ResponseEntity updateTaskByTaskId(@RequestBody Task req,@PathVariable Long taskId){
 		Map<String, String> message= new HashMap<String, String>();
 		Optional<Task> task= taskrepo.findById(taskId);
 		req.setId(taskId);
