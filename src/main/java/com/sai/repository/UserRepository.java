@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.sai.api.requests.UserRequest;
 import com.sai.model.User;
 
 @Repository
@@ -23,6 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	public User findByEmail(String username);
 	public User findById(long id);
+	public Object save(UserRequest user);
 	
 //	@Query("SELECT new com.sai.Project(projectId,projectName,createdBy) FROM Project where userId= :userId")
 //	public List<Project> getProjectByUserId(@Param("userId") long userId);	

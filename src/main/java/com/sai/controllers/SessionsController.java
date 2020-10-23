@@ -38,13 +38,14 @@ public class SessionsController {
 			return "login";
 		System.out.println("Logdin user is **************************   : "+principal.getName());
 		User user=userrepo.findByEmail(principal.getName());
-		System.out.println("in home page: ******************: "+user.getEmail()+" name"+user.getFirstName());
+		System.out.println("in login page: ******************: "+user.getEmail()+" name"+user.getFirstName());
 		mv.addAttribute("user",user);
 		long id=user.getId();
+		String link="redirect:http://localhost:4200/"+id;
 //		response.sendRedirect("/");
-		return "redirect:http://localhost:4200/";
+		return link;
 		
-//		return null;
+//		return "index";
 	}
 	
 	
@@ -53,9 +54,27 @@ public class SessionsController {
 	@GetMapping("/")
 	public String home(Principal principal) {
 //		System.out.println("user logeed in and their name is :"+principal.getName());
-//		User user=userrepo.findByEmail(principal.getName());
-//		System.out.println("in home page: ******************: "+user.getEmail()+" name"+user.getFirstName());
-//		long id=user.getId();
-		return "redirect:http://localhost:4200/";
+		User user=userrepo.findByEmail(principal.getName());
+		System.out.println("in home page: ******************: "+user.getEmail()+" name"+user.getFirstName());
+		long id=user.getId();
+//		return "redirect:http://localhost:4200/";
+		
+		String link="redirect:http://localhost:4200/"+id;
+		
+		return link;
+
+//		return "index";
 	}
+//	@GetMapping("/home")
+//	public String redirect(Principal principal) {
+////		System.out.println("user logeed in and their name is :"+principal.getName());
+//		User user=userrepo.findByEmail(principal.getName());
+//		System.out.println("in redirection page: ******************: "+user.getEmail()+" name"+user.getFirstName());
+//		long id=user.getId();
+////		return "redirect:http://localhost:4200/";
+//		
+//		String link="redirect:http://localhost:4200/"+id;
+//
+//		return link;
+//	}
 }

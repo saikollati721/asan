@@ -95,5 +95,10 @@ public class Project {
 		this.createdBy = createdBy;
 	}
 
+	public Object orElseThrow(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

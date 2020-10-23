@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sai.exception.ProjectNotfoundException;
 import com.sai.model.AssignedProject;
 import com.sai.model.Project;
 import com.sai.model.Task;
@@ -108,11 +109,13 @@ public class ProjectsController {
 			message.put("message", "Project deleted successfully");
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		}
-		else {
-			message.put("status","error");
-			message.put("message", "No project found");
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-		}
+//		else {
+//			message.put("status","error");
+//			message.put("message", "No project found");
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+//		}
+		
+		throw new ProjectNotfoundException();
 	}
 	
 	

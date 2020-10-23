@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sai.exception.UserProjectNotfoundException;
 import com.sai.model.AssignedProject;
 import com.sai.model.Project;
 import com.sai.repository.AssignedProjectsRepository;
@@ -24,6 +25,7 @@ import com.sai.repository.ProjectRepository;
 
 @RestController
 @CrossOrigin
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping()
 public class UserProjectsController {
 
@@ -63,9 +65,10 @@ public class UserProjectsController {
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(projects);
 		}
-		message.put("status","error");
-		message.put("message", "No record found");
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+//		message.put("status","error");
+//		message.put("message", "No record found");
+//		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+		throw new UserProjectNotfoundException();
 	}
 	
 }

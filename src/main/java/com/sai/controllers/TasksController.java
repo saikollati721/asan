@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sai.exception.TaskNotfoundException;
 import com.sai.model.AssignedProject;
 import com.sai.model.Task;
 import com.sai.model.User;
@@ -32,6 +33,7 @@ import com.sai.repository.UserRepository;
 
 @RestController
 @CrossOrigin
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping()
 public class TasksController {
 
@@ -63,9 +65,10 @@ public class TasksController {
 		List<Task> task= taskrepo.findByProjectId(projectId);
 		if(task.size()!=0)
 			return ResponseEntity.status(HttpStatus.OK).body(task);
-		message.put("status","error");
-		message.put("message", "No record found");
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+//		message.put("status","error");
+//		message.put("message", "No record found");
+//		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+		throw new TaskNotfoundException();
 	}
 	
 	
@@ -73,7 +76,7 @@ public class TasksController {
 	@PutMapping("/tasks/{taskId}")
 	public ResponseEntity updateTaskByTaskId(@RequestBody Task req,@PathVariable Long taskId){
 		Map<String, String> message= new HashMap<String, String>();
-		Optional<Task> task= taskrepo.findById(taskId);
+		Optional<Task> task= Optional.ofNullable(taskrepo.findById(taskId).orElseThrow(() -> new TaskNotfoundException()));
 		req.setId(taskId);
 		if(task!=null)
 		{
@@ -81,9 +84,8 @@ public class TasksController {
 			taskrepo.save(req);
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(task);
 		}
-		message.put("status","error");
-		message.put("message", "No record found");
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+		return null;
+		
 	}
 	
 //	public TasksController() {

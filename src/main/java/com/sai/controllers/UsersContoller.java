@@ -34,9 +34,11 @@ import com.sai.repository.TaskRepository;
 import com.sai.repository.UserRepository;
 import com.sai.services.SecurityService;
 
-@RestController
-@CrossOrigin
-@RequestMapping()
+//@RestController
+//@CrossOrigin
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://localhost:4200")
+//@RequestMapping()
 public class UsersContoller {
 	
 	@Autowired
@@ -59,8 +61,8 @@ public class UsersContoller {
 	
 	@GetMapping(path="/users")
 	@ResponseBody
-	public ResponseEntity<List<User>> getAllUsers() {
-		
+	public ResponseEntity<List<User>> getAllUsers(Principal principal) {
+		System.out.println("in users page ************************** : "+principal.getName());
 		return ResponseEntity.status(HttpStatus.OK).body(userrepo.findAll());
 
 	}

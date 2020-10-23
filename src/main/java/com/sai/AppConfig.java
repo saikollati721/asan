@@ -1,5 +1,6 @@
 package com.sai;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -61,6 +62,12 @@ public class AppConfig   extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(getPasswordEncoder());
+    }
+    
+    @Bean
+    public ModelMapper modelMapper() {
+       ModelMapper modelMapper = new ModelMapper();
+       return modelMapper;
     }
     
     
