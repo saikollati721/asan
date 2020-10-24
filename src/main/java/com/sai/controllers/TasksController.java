@@ -31,10 +31,10 @@ import com.sai.repository.AssignedProjectsRepository;
 import com.sai.repository.TaskRepository;
 import com.sai.repository.UserRepository;
 
-@RestController
-@CrossOrigin
+//@RestController
+//@CrossOrigin
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping()
+//@RequestMapping()
 public class TasksController {
 
 	@Autowired

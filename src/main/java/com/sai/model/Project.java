@@ -23,7 +23,7 @@ public class Project {
 	private long projectId;
 	private String projectName;
 	private String createdBy;
-	private Date createdAt;
+	private Date createdAt=new Date();
 	private long userId;
 
 //	@OneToMany(targetEntity = Task.class, fetch=FetchType.EAGER, cascade = CascadeType.ALL)

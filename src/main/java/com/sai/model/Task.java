@@ -22,15 +22,15 @@ public class Task {
 	
 	private boolean mark;
 	private Long projectId;
-	private long assignId;
+	private Long assignId;
 	
 	public Long getProjectId() {
 		return projectId;
 	}
-	public long getAssignId() {
+	public Long getAssignId() {
 		return assignId;
 	}
-	public void setAssignId(long assignId) {
+	public void setAssignId(Long assignId) {
 		this.assignId = assignId;
 	}
 	public void setProjectId(Long projectId) {

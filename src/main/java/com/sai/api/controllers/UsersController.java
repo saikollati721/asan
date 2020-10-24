@@ -41,18 +41,10 @@ public class UsersController {
 	private UserRepository userRepo;
 	
 	@Autowired
-	private ProjectRepository projectrepo;
-	
-	@Autowired
-	private TaskRepository taskrepo;
-
-	
-	@Autowired
     private ModelMapper modelMapper;
 
 	
-	@Autowired
-    private SecurityService securityService;
+	
 
 	
 	
@@ -77,7 +69,7 @@ public class UsersController {
 	@ResponseBody
 	public ResponseEntity<Object> setUser(@RequestBody UserRequest user) {
 		
-		System.out.println("******************** save user called");
+		
 //		user.setId((new User()).getId());
 		
 		User newuser=modelMapper.map(user, User.class);

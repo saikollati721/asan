@@ -33,11 +33,11 @@ import com.sai.repository.ProjectRepository;
 import com.sai.repository.TaskRepository;
 import com.sai.repository.UserRepository;
 
-@RestController
+//@RestController
 //@CrossOrigin(origins = "http://localhost:4200")
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
-@CrossOrigin
-@RequestMapping()
+//@CrossOrigin
+//@RequestMapping()
 public class ProjectsController {
 
 	
